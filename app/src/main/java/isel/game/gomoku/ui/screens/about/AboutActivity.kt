@@ -10,7 +10,8 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import isel.game.gomoku.R
-import isel.game.gomoku.ui.screens.daily.TAG
+import isel.game.gomoku.ui.screens.about.components.AuthorInfo.Companion.authorInfo
+import isel.game.gomoku.ui.screens.home.TAG
 
 class AboutActivity : ComponentActivity() {
 
@@ -27,8 +28,8 @@ class AboutActivity : ComponentActivity() {
             AboutScreen(
                 onSendEmailRequested = { openSendEmail(it) },
                 onOpenUrlRequested = { openURL(it) },
-                bottomBarOption= listOf(),
                 authors = authorInfo,
+                onBackRequest = { finish() }
             )
         }
     }
@@ -55,7 +56,7 @@ class AboutActivity : ComponentActivity() {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:")
                 putExtra(Intent.EXTRA_EMAIL, email)
-                putExtra(Intent.EXTRA_SUBJECT, EMAIL_SUBJECT)
+                putExtra(Intent.EXTRA_SUBJECT, "About the Jokes App")
             }
 
             startActivity(intent)
@@ -72,20 +73,3 @@ class AboutActivity : ComponentActivity() {
         }
     }
 }
-
-val authorInfo = listOf(
-    AuthorInfo(
-        name = "Rafael Costa",
-        email = "A48315@alunos.isel.pt",
-        imageId = R.drawable.ic_author,
-        git = Uri.parse("https://github.com/Rafael4DC")
-    ),
-    AuthorInfo(
-        name = "Bernardo Serra",
-        email = "A48315@alunos.isel.pt",
-        imageId = R.drawable.ic_armario,
-        git = Uri.parse("https://github.com/bfmserra")
-    )
-)
-
-private const val EMAIL_SUBJECT = "About the Jokes App"

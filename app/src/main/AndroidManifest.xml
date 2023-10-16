@@ -16,7 +16,10 @@
             android:name=".ui.screens.about.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screens.daily.MainActivity"
+            android:name=".ui.screens.ranking.RankingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.screens.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.Gomoku09">
             <intent-filter>

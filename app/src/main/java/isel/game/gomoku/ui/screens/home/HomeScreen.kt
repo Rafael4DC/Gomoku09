@@ -1,0 +1,123 @@
+package isel.game.gomoku.ui.screens.home
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import isel.game.gomoku.R
+import isel.game.gomoku.domain.app.Joke
+import isel.game.gomoku.ui.screens.shared.components.ButtonInfo
+import isel.game.gomoku.ui.screens.shared.components.ButtonSection
+import isel.game.gomoku.ui.theme.Gomoku9Theme
+import isel.game.gomoku.ui.screens.daily.JokeView
+
+/**
+ * Tags used to identify the components of the JokeScreen in automated tests
+ * (see app/src/androidTest/java/isel/pdm/chucknorris/JokeScreenTests.kt)
+ */
+const val FetchItTestTag = "FetchItTestTag"
+const val JokeTestTag = "JokeTestTag"
+const val JokeScreenTestTag = "JokeScreenTestTag"
+
+/**
+ * Root composable for the screen that displays a joke.
+ * @param service the service used to fetch jokes.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreen(
+    joke: Joke? = null,
+    onInfoRequested: () -> Unit = {},
+    onRankingRequested: () -> Unit = {},
+    onPlayRequested: () -> Unit = {},
+    onLoginRequested: () -> Unit = {}
+) {
+    Gomoku9Theme {
+        Scaffold(
+            modifier = Modifier
+                .fillMaxSize()
+                .testTag(JokeScreenTestTag),
+            topBar = {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_logo),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .align(Alignment.TopStart)
+                    )
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        fontSize = 30.sp,
+                        modifier = Modifier
+                            .align(Alignment.TopCenter)
+                            .padding(top = 30.dp)
+                    )
+                }
+            }
+
+        ) { it ->
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .paint(painterResource(id = R.drawable.ic_gomoku_background), contentScale = ContentScale.FillBounds)
+                    .padding(it),
+            ) {
+
+                ButtonSection(buttonInfo =
+                listOf(
+                    ButtonInfo(
+                        text = "Play",
+                        onClick = onPlayRequested
+                    ),
+                    ButtonInfo(
+                        text = "Ranking",
+                        onClick = onRankingRequested
+                    ),
+                    ButtonInfo(
+                        text = "About",
+                        onClick = onInfoRequested
+                    ),
+                    ButtonInfo(
+                        text = "Quick Joke",
+                        onClick = onLoginRequested
+                    )
+                ),
+                    Modifier
+                        .size(300.dp, 80.dp)
+                        .padding(10.dp))
+
+                joke?.let { JokeView(joke = it) }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen()
+}
+
