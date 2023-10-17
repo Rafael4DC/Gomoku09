@@ -1,0 +1,39 @@
+package isel.game.gomoku.ui.screens.costum
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.viewModels
+import isel.game.gomoku.service.app.FakeRankingService
+import isel.game.gomoku.ui.screens.home.TAG
+
+class CostumActivity : ComponentActivity() {
+
+    companion object {
+    fun navigateTo(origin: Activity) {
+        val intent = Intent(origin, CostumActivity::class.java)
+        origin.startActivity(intent)
+    }
+}
+    private val viewModel by viewModels<CostumViewModel>()
+    //private val service = FakeRankingService()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //viewModel.fetchRankers(service)
+        Log.v(TAG, "onCreateR() called")
+        setContent {
+            CostumScreen(
+                gameRules = viewModel.gameRules,
+                onBackRequest = { finish() },
+            )
+        }
+    }
+    override fun onStart() {
+        super.onStart()
+        Log.v(isel.game.gomoku.ui.screens.home.TAG, "onStartR() called")
+    }
+}

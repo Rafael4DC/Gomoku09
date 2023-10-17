@@ -1,12 +1,9 @@
 package isel.game.gomoku.service.app
 
 import android.util.Log
-import isel.game.gomoku.domain.app.Joke
 import isel.game.gomoku.domain.app.Ranker
-import isel.pdm.jokes.daily.TAG
+import isel.game.gomoku.ui.screens.home.TAG
 import kotlinx.coroutines.delay
-import java.net.URL
-import kotlin.random.Random
 
 /**
  * Contract of the service that provides jokes

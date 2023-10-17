@@ -1,7 +1,6 @@
 package isel.game.gomoku.ui.screens.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -25,11 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import isel.game.gomoku.R
-import isel.game.gomoku.domain.app.Joke
 import isel.game.gomoku.ui.screens.shared.components.ButtonInfo
 import isel.game.gomoku.ui.screens.shared.components.ButtonSection
 import isel.game.gomoku.ui.theme.Gomoku9Theme
-import isel.game.gomoku.ui.screens.daily.JokeView
 
 /**
  * Tags used to identify the components of the JokeScreen in automated tests
@@ -46,10 +42,10 @@ const val JokeScreenTestTag = "JokeScreenTestTag"
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    joke: Joke? = null,
     onInfoRequested: () -> Unit = {},
     onRankingRequested: () -> Unit = {},
     onPlayRequested: () -> Unit = {},
+    onCostumRequested: () -> Unit = {},
     onLoginRequested: () -> Unit = {}
 ) {
     Gomoku9Theme {
@@ -93,6 +89,10 @@ fun HomeScreen(
                         onClick = onPlayRequested
                     ),
                     ButtonInfo(
+                        text = "CostumGame",
+                        onClick = onCostumRequested
+                    ),
+                    ButtonInfo(
                         text = "Ranking",
                         onClick = onRankingRequested
                     ),
@@ -101,15 +101,13 @@ fun HomeScreen(
                         onClick = onInfoRequested
                     ),
                     ButtonInfo(
-                        text = "Quick Joke",
+                        text = "Login",
                         onClick = onLoginRequested
                     )
                 ),
                     Modifier
                         .size(300.dp, 80.dp)
                         .padding(10.dp))
-
-                joke?.let { JokeView(joke = it) }
             }
         }
     }

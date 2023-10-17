@@ -6,11 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import isel.game.gomoku.ui.screens.about.AboutActivity
-import isel.game.gomoku.service.app.FakeJokesService
-import isel.pdm.jokes.daily.JokeScreenViewModel
+import isel.game.gomoku.ui.screens.costum.CostumActivity
 import isel.game.gomoku.ui.screens.ranking.RankingActivity
 
-const val TAG = "JOKES_TAG"
+const val TAG = "GOMOKU_TAG"
 
 /**
  * Lecture #5 script
@@ -32,18 +31,16 @@ const val TAG = "JOKES_TAG"
  * Step 8 - Lets add a ViewModel to the MainScreen.
  */
 class HomeActivity : ComponentActivity() {
-    private val viewModel by viewModels<JokeScreenViewModel>()
-    private val service = FakeJokesService()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.v(TAG, "onCreate() called")
         setContent {
             HomeScreen(
-                joke = viewModel.joke,
                 onInfoRequested = { AboutActivity.navigateTo(this) },
                 onRankingRequested = { RankingActivity.navigateTo(this) },
                 onPlayRequested = { },
-                onLoginRequested = { viewModel.fetchJoke(service) }
+                onLoginRequested = {  },
+                onCostumRequested = { CostumActivity.navigateTo(this)}
             )
         }
     }

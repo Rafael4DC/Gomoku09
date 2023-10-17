@@ -19,6 +19,9 @@
             android:name=".ui.screens.ranking.RankingActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.screens.costum.CostumActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.screens.home.HomeActivity"
             android:exported="true"
             android:theme="@style/Theme.Gomoku09">
