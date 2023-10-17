@@ -23,11 +23,15 @@ class CostumActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //viewModel.fetchRankers(service)
         Log.v(TAG, "onCreateR() called")
         setContent {
             CostumScreen(
                 gameRules = viewModel.gameRules,
+                onChangeVariant = { viewModel.changeVariant(it) },
+                onChangeBoardSize = { viewModel.changeBoardSize(it) },
+                onChangeOpenRules = { viewModel.changeOpenRules(it) },
+                onChangeRoundDuration = { viewModel.changeRoundDuration(it) },
+                onStart = {  },
                 onBackRequest = { finish() },
             )
         }
